@@ -1,0 +1,1585 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Api Documentation",
+    "version": "1.0",
+    "title": "Api Documentation",
+    "termsOfService": "urn:tos",
+    "contact": {},
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "127.0.0.1:8023",
+  "basePath": "/",
+  "tags": [{
+    "name": "basic-error-controller",
+    "description": "Basic Error Controller"
+  }, {
+    "name": "operation-handler",
+    "description": "Operation Handler"
+  }, {
+    "name": "redirect-controller",
+    "description": "Redirect Controller"
+  }, {
+    "name": "web-mvc-endpoint-handler-mapping",
+    "description": "Web Mvc Endpoint Handler Mapping"
+  }, {
+    "name": "检测接口",
+    "description": "Detect Controller"
+  }, {
+    "name": "问诊接口",
+    "description": "Clinic Controller"
+  }],
+  "paths": {
+    "/actuator": {
+      "get": {
+        "tags": ["web-mvc-endpoint-handler-mapping"],
+        "summary": "links",
+        "operationId": "linksUsingGET",
+        "produces": ["application/json", "application/vnd.spring-boot.actuator.v2+json"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "additionalProperties": {
+                  "$ref": "#/definitions/Link"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/actuator/health": {
+      "get": {
+        "tags": ["operation-handler"],
+        "summary": "handle",
+        "operationId": "handleUsingGET",
+        "produces": ["application/json", "application/vnd.spring-boot.actuator.v2+json"],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "description": "body",
+          "required": false,
+          "schema": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/actuator/info": {
+      "get": {
+        "tags": ["operation-handler"],
+        "summary": "handle",
+        "operationId": "handleUsingGET_1",
+        "produces": ["application/json", "application/vnd.spring-boot.actuator.v2+json"],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "description": "body",
+          "required": false,
+          "schema": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/clinic/doctor/detail": {
+      "get": {
+        "tags": ["问诊接口"],
+        "summary": "获取医生详细信息",
+        "operationId": "getDoctorDetailUsingGET",
+        "produces": ["*/*"],
+        "parameters": [{
+          "name": "questionId",
+          "in": "query",
+          "description": "问题id",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/HttpResponseObject«DoctorInfo»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/clinic/free_problem/create": {
+      "post": {
+        "tags": ["问诊接口"],
+        "summary": "发起提问请求",
+        "description": "根据mobile标识唯一用户",
+        "operationId": "createFreeProblemUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [{
+          "in": "body",
+          "name": "param",
+          "description": "param",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/FreeProblemParam"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/HttpResponseObject«long»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/clinic/login": {
+      "get": {
+        "tags": ["问诊接口"],
+        "summary": "模拟登录",
+        "description": "模拟登录",
+        "operationId": "loginUsingGET",
+        "produces": ["*/*"],
+        "parameters": [{
+          "name": "id",
+          "in": "query",
+          "description": "账号ID",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/HttpResponseObject«boolean»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/clinic/problem/assess": {
+      "post": {
+        "tags": ["问诊接口"],
+        "summary": "对医生进行评价",
+        "operationId": "assessProblemUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [{
+          "in": "body",
+          "name": "param",
+          "description": "param",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/AssessParam"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/HttpResponseObject«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/clinic/problem/close": {
+      "post": {
+        "tags": ["问诊接口"],
+        "summary": "关闭问题",
+        "description": "条件：状态不是已关闭且医生有回复，合作方可以主动关闭这个问题。",
+        "operationId": "closeProblemUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [{
+          "in": "body",
+          "name": "param",
+          "description": "param",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/CloseProblemParam"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/HttpResponseObject«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/clinic/problem/detail": {
+      "post": {
+        "tags": ["问诊接口"],
+        "summary": "获取问题详情",
+        "operationId": "getProblemDetailUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [{
+          "in": "body",
+          "name": "param",
+          "description": "param",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/ProblemDetailParam"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/HttpResponseObject«QuestionDetailResult»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/clinic/problem/list/my": {
+      "get": {
+        "tags": ["问诊接口"],
+        "summary": "提问历史",
+        "operationId": "getProblemHistoryUsingGET",
+        "produces": ["*/*"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/HttpResponseList«Question»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/clinic/problem/view": {
+      "post": {
+        "tags": ["问诊接口"],
+        "summary": "查看问题",
+        "description": "会使问题状态变更为'用户已查看'",
+        "operationId": "viewProblemUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [{
+          "in": "body",
+          "name": "param",
+          "description": "param",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/ViewProblemParam"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/HttpResponseObject«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/clinic/problem_content/create": {
+      "post": {
+        "tags": ["问诊接口"],
+        "summary": "追加问题内容",
+        "operationId": "createContentUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [{
+          "in": "body",
+          "name": "param",
+          "description": "param",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/ContentParam"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/HttpResponseObject«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/clinic/sign": {
+      "get": {
+        "tags": ["问诊接口"],
+        "summary": "获取签名信息，开发调试用。",
+        "description": "获取签名信息，开发调试用",
+        "operationId": "getSignUsingGET",
+        "produces": ["*/*"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SignModel"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/clinic/user/create": {
+      "post": {
+        "tags": ["问诊接口"],
+        "summary": "创建受检人信息。",
+        "description": "根据accountId关联账户信息。",
+        "operationId": "createTestUserUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [{
+          "in": "body",
+          "name": "param",
+          "description": "param",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/TestUserParam"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/HttpResponseObject«TestUser»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/clinic/user/list": {
+      "get": {
+        "tags": ["问诊接口"],
+        "summary": "获取受检人信息列表。",
+        "description": "根据accountId获取受检人信息列表。",
+        "operationId": "getTestUserListUsingGET",
+        "produces": ["*/*"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/HttpResponseList«TestUser»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/detect/History/list": {
+      "get": {
+        "tags": ["检测接口"],
+        "summary": "获取检测历史列表。",
+        "operationId": "getTestResultHistoryUsingGET",
+        "produces": ["*/*"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/HttpResponseList«TestResultBean»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/detect/histtory/detail": {
+      "post": {
+        "tags": ["检测接口"],
+        "summary": "获取历史结果详情。",
+        "operationId": "getHistoryDetialUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [{
+          "in": "body",
+          "name": "param",
+          "description": "param",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/检测历史详情参数类"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/对外接口返回类"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/detect/upload": {
+      "post": {
+        "tags": ["检测接口"],
+        "summary": "检测上传。",
+        "description": "接收base64格式的图片数据。",
+        "operationId": "detectUploadUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [{
+          "in": "body",
+          "name": "param",
+          "description": "param",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/RecogParam"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/对外接口返回类"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/error": {
+      "get": {
+        "tags": ["basic-error-controller"],
+        "summary": "errorHtml",
+        "operationId": "errorHtmlUsingGET",
+        "produces": ["text/html"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ModelAndView"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "head": {
+        "tags": ["basic-error-controller"],
+        "summary": "errorHtml",
+        "operationId": "errorHtmlUsingHEAD",
+        "consumes": ["application/json"],
+        "produces": ["text/html"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ModelAndView"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": ["basic-error-controller"],
+        "summary": "errorHtml",
+        "operationId": "errorHtmlUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["text/html"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ModelAndView"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["basic-error-controller"],
+        "summary": "errorHtml",
+        "operationId": "errorHtmlUsingPUT",
+        "consumes": ["application/json"],
+        "produces": ["text/html"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ModelAndView"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["basic-error-controller"],
+        "summary": "errorHtml",
+        "operationId": "errorHtmlUsingDELETE",
+        "produces": ["text/html"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ModelAndView"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "options": {
+        "tags": ["basic-error-controller"],
+        "summary": "errorHtml",
+        "operationId": "errorHtmlUsingOPTIONS",
+        "consumes": ["application/json"],
+        "produces": ["text/html"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ModelAndView"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["basic-error-controller"],
+        "summary": "errorHtml",
+        "operationId": "errorHtmlUsingPATCH",
+        "consumes": ["application/json"],
+        "produces": ["text/html"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ModelAndView"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/redirect": {
+      "get": {
+        "tags": ["redirect-controller"],
+        "summary": "redirect",
+        "operationId": "redirectUsingGET",
+        "produces": ["*/*"],
+        "parameters": [{
+          "name": "id",
+          "in": "query",
+          "description": "id",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }, {
+          "name": "appkey",
+          "in": "query",
+          "description": "appkey",
+          "required": true,
+          "type": "string"
+        }, {
+          "name": "timestamp",
+          "in": "query",
+          "description": "timestamp",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }, {
+          "name": "noncestr",
+          "in": "query",
+          "description": "noncestr",
+          "required": true,
+          "type": "string"
+        }, {
+          "name": "sign",
+          "in": "query",
+          "description": "sign",
+          "required": true,
+          "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AssessParam": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "assessInfo": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "questionId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "AssessParam"
+    },
+    "CloseProblemParam": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "questionId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "CloseProblemParam"
+    },
+    "ContentParam": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "content": {
+          "type": "string"
+        },
+        "questionId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ContentParam"
+    },
+    "DoctorInfo": {
+      "type": "object",
+      "properties": {
+        "clinicName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "doctorId": {
+          "type": "string"
+        },
+        "famousDoctor": {
+          "type": "boolean"
+        },
+        "fansNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "gmtCreate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "gmtModified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "goodAt": {
+          "type": "string"
+        },
+        "goodRate": {
+          "type": "string"
+        },
+        "hospital": {
+          "type": "string"
+        },
+        "hospitalGrade": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "image": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "questionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "recommendRate": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "replyNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rewardNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "solutionScore": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tags": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "title": "DoctorInfo"
+    },
+    "FreeProblemParam": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "age": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "attached": {
+          "type": "boolean"
+        },
+        "content": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "testResultId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "FreeProblemParam"
+    },
+    "HttpResponseList«Question»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Question"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "pageable": {
+          "type": "boolean"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "HttpResponseList«Question»"
+    },
+    "HttpResponseList«TestResultBean»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TestResultBean"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "pageable": {
+          "type": "boolean"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "HttpResponseList«TestResultBean»"
+    },
+    "HttpResponseList«TestUser»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TestUser"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "pageable": {
+          "type": "boolean"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "HttpResponseList«TestUser»"
+    },
+    "HttpResponseObject«DoctorInfo»": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "$ref": "#/definitions/DoctorInfo"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "HttpResponseObject«DoctorInfo»"
+    },
+    "HttpResponseObject«QuestionDetailResult»": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "$ref": "#/definitions/QuestionDetailResult"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "HttpResponseObject«QuestionDetailResult»"
+    },
+    "HttpResponseObject«TestUser»": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "$ref": "#/definitions/TestUser"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "HttpResponseObject«TestUser»"
+    },
+    "HttpResponseObject«boolean»": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "boolean"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "HttpResponseObject«boolean»"
+    },
+    "HttpResponseObject«long»": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "HttpResponseObject«long»"
+    },
+    "Link": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "templated": {
+          "type": "boolean"
+        }
+      },
+      "title": "Link"
+    },
+    "Map«string,Link»": {
+      "type": "object",
+      "title": "Map«string,Link»",
+      "additionalProperties": {
+        "$ref": "#/definitions/Link"
+      }
+    },
+    "MetaItemDetailResult": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "contentId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "gmtCreate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "gmtModified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "person": {
+          "type": "string"
+        },
+        "questionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "MetaItemDetailResult"
+    },
+    "ModelAndView": {
+      "type": "object",
+      "properties": {
+        "empty": {
+          "type": "boolean"
+        },
+        "model": {
+          "type": "object"
+        },
+        "modelMap": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "reference": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["100", "101", "102", "103", "200", "201", "202", "203", "204", "205", "206", "207", "208", "226", "300", "301", "302", "303", "304", "305", "307", "308", "400", "401", "402", "403", "404", "405", "406", "407", "408", "409", "410", "411", "412", "413", "414", "415", "416", "417", "418", "419", "420", "421", "422", "423", "424", "426", "428", "429", "431", "451", "500", "501", "502", "503", "504", "505", "506", "507", "508", "509", "510", "511"]
+        },
+        "view": {
+          "$ref": "#/definitions/View"
+        },
+        "viewName": {
+          "type": "string"
+        }
+      },
+      "title": "ModelAndView"
+    },
+    "ProblemDetailParam": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastContentId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "questionId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ProblemDetailParam"
+    },
+    "Question": {
+      "type": "object",
+      "properties": {
+        "ask": {
+          "type": "string"
+        },
+        "assessed": {
+          "type": "boolean"
+        },
+        "clinicNo": {
+          "type": "string"
+        },
+        "gmtCreate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "gmtModified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "interaction": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "patientId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "problemId": {
+          "type": "string"
+        },
+        "star": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "title": "Question"
+    },
+    "QuestionDetailResult": {
+      "type": "object",
+      "properties": {
+        "doctorInfo": {
+          "$ref": "#/definitions/DoctorInfo"
+        },
+        "metaItemDetailResultList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MetaItemDetailResult"
+          }
+        },
+        "question": {
+          "$ref": "#/definitions/Question"
+        }
+      },
+      "title": "QuestionDetailResult"
+    },
+    "RecogParam": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "appName": {
+          "type": "string"
+        },
+        "imageData": {
+          "type": "string"
+        },
+        "testUserId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "RecogParam"
+    },
+    "SignModel": {
+      "type": "object",
+      "properties": {
+        "appkey": {
+          "type": "string"
+        },
+        "noncestr": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "SignModel"
+    },
+    "TestResultBean": {
+      "type": "object",
+      "properties": {
+        "gmtCreate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "productCode": {
+          "type": "string"
+        },
+        "resultId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "testUserAge": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "testUserGender": {
+          "type": "string"
+        },
+        "testUserName": {
+          "type": "string"
+        }
+      },
+      "title": "TestResultBean"
+    },
+    "TestUser": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "age": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "defaultUser": {
+          "type": "boolean"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "gmtCreate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "gmtModified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "TestUser"
+    },
+    "TestUserParam": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "age": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "TestUserParam"
+    },
+    "View": {
+      "type": "object",
+      "properties": {
+        "contentType": {
+          "type": "string"
+        }
+      },
+      "title": "View"
+    },
+    "ViewProblemParam": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "questionId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ViewProblemParam"
+    },
+    "对外接口返回类": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "object"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "projectCode": {
+          "type": "string",
+          "description": "二维码上的项目编号",
+          "allowEmptyValue": false
+        },
+        "resultCode": {
+          "type": "integer",
+          "format": "int32",
+          "description": "考虑兼容原有系统的错误代码库，resultCode为编码",
+          "allowEmptyValue": false
+        },
+        "resultId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "检测结果ID",
+          "allowEmptyValue": false
+        },
+        "resultMessage": {
+          "type": "string",
+          "description": "考虑兼容原有系统的错误代码库，rresultMessage为编码相应的信息",
+          "allowEmptyValue": false
+        },
+        "totalLevel": {
+          "type": "integer",
+          "format": "int64",
+          "description": "总档位",
+          "allowEmptyValue": false
+        },
+        "viewType": {
+          "type": "string",
+          "description": "显示的视图名称",
+          "allowEmptyValue": false
+        }
+      },
+      "title": "对外接口返回类",
+      "description": "继承了HttpResponseObject<T>"
+    },
+    "检测历史详情参数类": {
+      "type": "object",
+      "properties": {
+        "resultId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结果ID",
+          "allowEmptyValue": false
+        },
+        "viewType": {
+          "type": "string",
+          "description": "视图名称",
+          "allowEmptyValue": false
+        }
+      },
+      "title": "检测历史详情参数类",
+      "description": "检测历史详情参数封闭类"
+    }
+  }
+} /*  */

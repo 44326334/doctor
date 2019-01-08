@@ -1,0 +1,24 @@
+{
+  "bad": [
+    {"id": "1101", "flag":false, "content": "不友好"},
+    {"id": "1102", "flag":false, "content": "不细致"},
+    {"id": "1201", "flag":false, "content": "等好久没回复"},
+    {"id": "1301", "flag":false, "content": "完全听不懂"},
+    {"id": "1302", "flag":false, "content": "感觉不专业"},
+    {"id": "1303", "flag":false, "content": "没有帮助"}
+  ],
+  "good": [
+    {"id": "2101", "flag":false, "content": "希望更热情"},
+    {"id": "2102", "flag":false, "content": "希望更细致"},
+    {"id": "2201", "flag":false, "content": "希望回复更快"},
+    {"id": "2301", "flag":false, "content": "希望讲得更透彻"}
+  ],
+  "best": [
+    {"id": "3101", "flag":false, "content": "态度非常好"},
+    {"id": "3102", "flag":false, "content": "非常清楚"},
+    {"id": "3201", "flag":false, "content": "回复很及时"},
+    {"id": "3301", "flag":false, "content": "非常专业认真"},
+    {"id": "3302", "flag":false, "content": "意见很有帮助"},
+    {"id": "3303", "flag":false, "content": "非常敬业"}
+  ]
+}
